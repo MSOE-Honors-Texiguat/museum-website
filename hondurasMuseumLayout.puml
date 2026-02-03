@@ -1,0 +1,51 @@
+@startuml hondurasMuseumLayout
+
+title Honduras Museum Layout
+
+' Top row - Main themes
+rectangle "Fransisco Morazan" as fransisco
+rectangle "Spanish Colonials" as colonials
+rectangle "Indigenous Population" as indigenous
+
+' Second row - Historical periods and topics
+rectangle "Early Life" as earlylife
+rectangle "Military Ambitions" as military
+rectangle "In Texiguat" as texiguat
+rectangle "Creation Of Town" as creation
+rectangle "Mining" as mining
+rectangle "Folktales" as folk
+rectangle "Church" as church
+
+' Third row - Post-colonial period
+rectangle "Post-War" as postwar
+rectangle "Trinidad" as trinidad
+rectangle "Headquarters" as headquarters
+rectangle "Army Makeup" as army
+rectangle "Spanish Removal" as removal
+
+' Bottom row - Final themes
+rectangle "Death" as death
+rectangle "Political Ambitions" as political
+
+' Vertical alignment
+fransisco -down- military
+fransisco -down- earlylife
+fransisco -down- texiguat
+
+military -down- postwar
+military -down- trinidad
+
+texiguat -down- headquarters
+texiguat -down- army
+
+postwar -down- death
+postwar -down- political
+
+colonials -down- creation
+colonials -down- mining
+
+creation -down- removal
+
+indigenous -down- folk
+indigenous -down- church
+@enduml
