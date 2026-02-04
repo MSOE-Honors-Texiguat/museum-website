@@ -3,7 +3,7 @@
 title Honduras Museum Layout
 
 ' Top row - Main themes
-rectangle "Fransisco Morazan" as fransisco
+rectangle "Francisco Morazan" as francisco
 rectangle "Spanish Colonials" as colonials
 rectangle "Indigenous Population" as indigenous
 
@@ -28,9 +28,9 @@ rectangle "Death" as death
 rectangle "Political Ambitions" as political
 
 ' Vertical alignment
-fransisco -down- military
-fransisco -down- earlylife
-fransisco -down- texiguat
+francisco -down- military
+francisco -down- earlylife
+francisco -down- texiguat
 
 military -down- postwar
 military -down- trinidad
