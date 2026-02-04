@@ -7,6 +7,6 @@ export default defineConfig({
   // Serve static assets (e.g., og_preview.jpg) from the public directory during build.
   publicDir: "public",
   server: {
-    allowedHosts: ["msoe-honors-texiguat.github.io"],
+    allowedHosts: ["texiguat-museum.samfreund.dev"],
   },
 });
