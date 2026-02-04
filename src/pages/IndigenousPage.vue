@@ -1,64 +1,60 @@
 <script setup lang="ts">
 import GridSection from "../components/GridSection.vue";
 import Button from "../components/Button.vue";
+import { useLanguage } from "../composables/useLanguage";
+
+const { t } = useLanguage();
 
 interface TopicCard {
   icon: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
 }
 
 interface PageData {
-  title: string;
-  subtitle: string;
-  heroDescription: string;
+  titleKey: string;
+  subtitleKey: string;
+  heroDescriptionKey: string;
   mainTopics: TopicCard[];
   relatedTopics: TopicCard[];
 }
 
 const pageData: PageData = {
-  title: "Indigenous Population",
-  subtitle: "Ancient Cultures & Enduring Heritage",
-  heroDescription:
-    "Explore the rich and ancient cultures of Honduras' indigenous peoples, whose traditions, beliefs, and practices continue to shape the nation's cultural identity.",
+  titleKey: "nav.indigenous",
+  subtitleKey: "indigenous.subtitle",
+  heroDescriptionKey: "indigenous.hero",
   mainTopics: [
     {
       icon: "fa-solid fa-book",
-      title: "Folktales",
-      description:
-        "Traditional stories passed down through generations preserve the wisdom, values, and imagination of indigenous communities.",
+      titleKey: "indigenous.topic.folktales.title",
+      descKey: "indigenous.topic.folktales.desc",
     },
     {
       icon: "fa-solid fa-church",
-      title: "Church & Spirituality",
-      description:
-        "Indigenous spiritual practices blended with introduced religions, creating unique syncretic traditions and belief systems.",
+      titleKey: "indigenous.topic.spirituality.title",
+      descKey: "indigenous.topic.spirituality.desc",
     },
   ],
   relatedTopics: [
     {
       icon: "fa-solid fa-leaf",
-      title: "Cultural Heritage",
-      description:
-        "The preservation and celebration of indigenous languages, crafts, and traditions in contemporary Honduras.",
+      titleKey: "indigenous.topic.culturalHeritage.title",
+      descKey: "indigenous.topic.culturalHeritage.desc",
     },
     {
       icon: "fa-solid fa-earth-americas",
-      title: "Land & Territory",
-      description:
-        "The historical and ongoing relationship between indigenous peoples and the lands they inhabited for centuries.",
+      titleKey: "indigenous.topic.land.title",
+      descKey: "indigenous.topic.land.desc",
     },
     {
       icon: "fa-solid fa-users",
-      title: "Community & Society",
-      description:
-        "The social structures, governance systems, and community organization of indigenous Honduran societies.",
+      titleKey: "indigenous.topic.community.title",
+      descKey: "indigenous.topic.community.desc",
     },
     {
       icon: "fa-solid fa-heart",
-      title: "Contemporary Identity",
-      description:
-        "How indigenous Hondurans maintain their cultural identity and traditions in the modern world.",
+      titleKey: "indigenous.topic.identity.title",
+      descKey: "indigenous.topic.identity.desc",
     },
   ],
 };
@@ -77,16 +73,16 @@ const pageData: PageData = {
       <div class="relative z-10 max-w-3xl">
         <div class="inline-block mb-4">
           <span class="text-brand font-semibold tracking-wider uppercase text-sm px-4 py-2 bg-brand/10 rounded-full">
-            <i class="fa-solid fa-earth-americas mr-2"></i>Main Exhibition
+            <i class="fa-solid fa-earth-americas mr-2"></i>{{ t('indigenous.badge') }}
           </span>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">{{ pageData.title }}</h1>
-        <h2 class="text-2xl md:text-3xl text-brand mb-8">{{ pageData.subtitle }}</h2>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">{{ t(pageData.titleKey) }}</h1>
+        <h2 class="text-2xl md:text-3xl text-brand mb-8">{{ t(pageData.subtitleKey) }}</h2>
         <p class="text-lg md:text-xl text-zinc-300 leading-relaxed mb-8">
-          {{ pageData.heroDescription }}
+          {{ t(pageData.heroDescriptionKey) }}
         </p>
         <Button href="/" variant="outline" size="md">
-          <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
+          <i class="fa-solid fa-arrow-left mr-2"></i>{{ t('button.backHome') }}
         </Button>
       </div>
     </section>
@@ -94,9 +90,13 @@ const pageData: PageData = {
     <!-- Main Topics Section -->
     <GridSection
       id="indigenous-topics"
-      title="Cultural Foundations"
-      description="The core elements of indigenous Honduran culture and spirituality"
-      :features="pageData.mainTopics"
+      :title="t('indigenous.section.foundations')"
+      :description="'The core elements of indigenous Honduran culture and spirituality'"
+      :features="pageData.mainTopics.map(topic => ({
+        icon: topic.icon,
+        title: t(topic.titleKey),
+        description: t(topic.descKey),
+      }))"
       :columns="2"
     />
 
@@ -104,29 +104,25 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20 bg-zinc-800/30 border-t border-zinc-700">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Indigenous <span class="text-brand">Civilizations</span>
+          {{ t('indigenous.civilizations.title') }} <span class="text-brand">Civilizations</span>
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-8">
             <div class="text-3xl text-brand mb-4">
               <i class="fa-solid fa-building"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-3">Ancient Societies</h3>
+            <h3 class="text-xl font-semibold mb-3">{{ t('indigenous.civilizations.ancient.title') }}</h3>
             <p class="text-zinc-300">
-              Before European contact, indigenous peoples of Honduras developed complex societies with 
-              sophisticated governance systems, agricultural practices, and architectural achievements 
-              that reflected their deep knowledge of the land.
+              {{ t('indigenous.civilizations.ancient.desc') }}
             </p>
           </div>
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-8">
             <div class="text-3xl text-brand mb-4">
               <i class="fa-solid fa-scroll"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-3">Traditions & Knowledge</h3>
+            <h3 class="text-xl font-semibold mb-3">{{ t('indigenous.civilizations.traditions.title') }}</h3>
             <p class="text-zinc-300">
-              Indigenous knowledge systems encompassed agriculture, medicine, astronomy, and art. 
-              These traditions were preserved and transmitted through oral history, artistic expression, 
-              and practical skills passed from generation to generation.
+              {{ t('indigenous.civilizations.traditions.desc') }}
             </p>
           </div>
         </div>
@@ -137,7 +133,7 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Living <span class="text-brand">Traditions</span>
+          {{ t('indigenous.living.title') }} <span class="text-brand">Traditions</span>
         </h2>
         <div class="space-y-6">
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-8">
@@ -146,10 +142,9 @@ const pageData: PageData = {
                 <i class="fa-solid fa-language"></i>
               </div>
               <div>
-                <h3 class="text-xl font-semibold mb-2">Language & Oral Tradition</h3>
+                <h3 class="text-xl font-semibold mb-2">{{ t('indigenous.living.language.title') }}</h3>
                 <p class="text-zinc-300">
-                  Indigenous languages preserve unique ways of understanding the world. Oral traditions 
-                  continue to transmit stories, histories, and cultural values through spoken word and ceremony.
+                  {{ t('indigenous.living.language.desc') }}
                 </p>
               </div>
             </div>
@@ -160,10 +155,9 @@ const pageData: PageData = {
                 <i class="fa-solid fa-palette"></i>
               </div>
               <div>
-                <h3 class="text-xl font-semibold mb-2">Arts & Crafts</h3>
+                <h3 class="text-xl font-semibold mb-2">{{ t('indigenous.living.arts.title') }}</h3>
                 <p class="text-zinc-300">
-                  Textiles, pottery, weaving, and other traditional crafts are expressions of cultural 
-                  identity and continue to be vital parts of indigenous communities today.
+                  {{ t('indigenous.living.arts.desc') }}
                 </p>
               </div>
             </div>
@@ -174,10 +168,9 @@ const pageData: PageData = {
                 <i class="fa-solid fa-tree"></i>
               </div>
               <div>
-                <h3 class="text-xl font-semibold mb-2">Environmental Stewardship</h3>
+                <h3 class="text-xl font-semibold mb-2">{{ t('indigenous.living.environment.title') }}</h3>
                 <p class="text-zinc-300">
-                  Indigenous peoples developed sustainable relationships with their environment, 
-                  with practices rooted in deep ecological knowledge and respect for natural systems.
+                  {{ t('indigenous.living.environment.desc') }}
                 </p>
               </div>
             </div>
@@ -190,8 +183,12 @@ const pageData: PageData = {
     <GridSection
       id="related-topics"
       title="Cultural Dimensions"
-      description="The various aspects of indigenous identity, community, and heritage"
-      :features="pageData.relatedTopics"
+      :description="'The various aspects of indigenous identity, community, and heritage'"
+      :features="pageData.relatedTopics.map(topic => ({
+        icon: topic.icon,
+        title: t(topic.titleKey),
+        description: t(topic.descKey),
+      }))"
       :columns="2"
       reverse-cards
     />
@@ -200,35 +197,32 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20 bg-zinc-800/30 border-t border-zinc-700">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-8">
-          Indigenous Honduras <span class="text-brand">Today</span>
+          {{ t('indigenous.modern.title') }} <span class="text-brand">Today</span>
         </h2>
         <p class="text-lg text-zinc-300 mb-8 leading-relaxed">
-          Indigenous communities in Honduras continue to preserve and celebrate their cultural heritage 
-          while adapting to contemporary challenges. From language preservation initiatives to cultural 
-          festivals, indigenous Hondurans maintain strong connections to their ancestral traditions while 
-          shaping the nation's future.
+          {{ t('indigenous.modern.subtitle') }}
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-6">
             <div class="text-4xl text-brand mb-3">
               <i class="fa-solid fa-heart"></i>
             </div>
-            <h3 class="font-semibold mb-2">Cultural Pride</h3>
-            <p class="text-sm text-zinc-300">Celebrating indigenous heritage through festivals and community events</p>
+            <h3 class="font-semibold mb-2">{{ t('indigenous.modern.pride.title') }}</h3>
+            <p class="text-sm text-zinc-300">{{ t('indigenous.modern.pride.desc') }}</p>
           </div>
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-6">
             <div class="text-4xl text-brand mb-3">
               <i class="fa-solid fa-book"></i>
             </div>
-            <h3 class="font-semibold mb-2">Education</h3>
-            <p class="text-sm text-zinc-300">Teaching indigenous languages and histories to new generations</p>
+            <h3 class="font-semibold mb-2">{{ t('indigenous.modern.education.title') }}</h3>
+            <p class="text-sm text-zinc-300">{{ t('indigenous.modern.education.desc') }}</p>
           </div>
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-6">
             <div class="text-4xl text-brand mb-3">
               <i class="fa-solid fa-handshake"></i>
             </div>
-            <h3 class="font-semibold mb-2">Advocacy</h3>
-            <p class="text-sm text-zinc-300">Working to protect indigenous rights and land claims</p>
+            <h3 class="font-semibold mb-2">{{ t('indigenous.modern.advocacy.title') }}</h3>
+            <p class="text-sm text-zinc-300">{{ t('indigenous.modern.advocacy.desc') }}</p>
           </div>
         </div>
       </div>
@@ -238,17 +232,17 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-2xl md:text-3xl font-bold mb-8">
-          Explore Other <span class="text-brand">Exhibitions</span>
+          {{ t('francisco.section.exploreName') }} <span class="text-brand">Exhibitions</span>
         </h2>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <Button href="/francisco-morazan" variant="primary" size="lg">
-            <i class="fa-solid fa-person mr-2"></i>Francisco Morazan
+            <i class="fa-solid fa-person mr-2"></i>{{ t('nav.francisco') }}
           </Button>
           <Button href="/spanish-colonials" variant="secondary" size="lg">
-            <i class="fa-solid fa-crown mr-2"></i>Spanish Colonials
+            <i class="fa-solid fa-crown mr-2"></i>{{ t('nav.colonials') }}
           </Button>
           <Button href="/" variant="outline" size="lg">
-            <i class="fa-solid fa-home mr-2"></i>Home
+            <i class="fa-solid fa-home mr-2"></i>{{ t('button.home') }}
           </Button>
         </div>
       </div>

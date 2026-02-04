@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from "vue-router";
+import { useLanguage } from "./composables/useLanguage";
+import LanguageSwitcher from "./components/LanguageSwitcher.vue";
 
 const router = useRouter();
 const route = useRoute();
+const { t } = useLanguage();
 
 const navLinks = [
   {
-    label: "Francisco Morazan",
+    label: "nav.francisco",
     path: "/francisco-morazan",
     icon: "fa-solid fa-person",
   },
   {
-    label: "Spanish Colonials",
+    label: "nav.colonials",
     path: "/spanish-colonials",
     icon: "fa-solid fa-crown",
   },
   {
-    label: "Indigenous Population",
+    label: "nav.indigenous",
     path: "/indigenous-population",
     icon: "fa-solid fa-earth-americas",
   },
@@ -37,7 +40,7 @@ const isActive = (path: string) => route.path === path;
             class="font-bold text-lg text-brand hover:text-brand/80 transition-colors flex items-center gap-2"
           >
             <i class="fa-solid fa-building"></i>
-            <span class="hidden sm:inline">Honduras Museum</span>
+            <span class="hidden sm:inline">{{ t('nav.title') }}</span>
           </router-link>
         </div>
 
@@ -55,17 +58,20 @@ const isActive = (path: string) => route.path === path;
             ]"
           >
             <i :class="link.icon"></i>
-            {{ link.label }}
+            {{ t(link.label) }}
           </router-link>
         </div>
 
-        <!-- Mobile Menu Button -->
-        <button
-          class="md:hidden text-zinc-300 hover:text-white p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-          type="button"
-        >
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+        <!-- Language Switcher and Mobile Menu Button -->
+        <div class="flex items-center gap-3">
+          <LanguageSwitcher />
+          <button
+            class="md:hidden text-zinc-300 hover:text-white p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+            type="button"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -78,7 +84,7 @@ const isActive = (path: string) => route.path === path;
     <footer class="bg-zinc-800 border-t border-zinc-700 mt-20 py-8">
       <div class="px-6 md:px-14 lg:px-28 text-center text-zinc-400">
         <p>
-          Honduras Museum - MSOE Honors Texiguat Program © {{ new Date().getFullYear() }}
+          {{ t('footer.copyright') }} © {{ new Date().getFullYear() }}
         </p>
       </div>
     </footer>

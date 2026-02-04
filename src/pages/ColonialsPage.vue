@@ -1,52 +1,50 @@
 <script setup lang="ts">
 import GridSection from "../components/GridSection.vue";
 import Button from "../components/Button.vue";
+import { useLanguage } from "../composables/useLanguage";
+
+const { t } = useLanguage();
 
 interface TopicCard {
   icon: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
 }
 
 interface PageData {
-  title: string;
-  subtitle: string;
-  heroDescription: string;
+  titleKey: string;
+  subtitleKey: string;
+  heroDescriptionKey: string;
   mainTopics: TopicCard[];
   relatedTopics: TopicCard[];
 }
 
 const pageData: PageData = {
-  title: "Spanish Colonials",
-  subtitle: "The Legacy of Spanish Rule in Honduras",
-  heroDescription:
-    "Discover how Spanish colonization transformed Honduras, from the initial conquest to the establishment of colonial institutions that shaped society for centuries.",
+  titleKey: "nav.colonials",
+  subtitleKey: "colonials.subtitle",
+  heroDescriptionKey: "colonials.hero",
   mainTopics: [
     {
       icon: "fa-solid fa-hammer",
-      title: "Creation of Town",
-      description:
-        "Spanish conquistadors established towns and settlements, reorganizing indigenous populations under colonial rule and establishing new urban centers.",
+      titleKey: "colonials.topic.creation.title",
+      descKey: "colonials.topic.creation.desc",
     },
     {
       icon: "fa-solid fa-pickaxe",
-      title: "Mining",
-      description:
-        "The extraction of precious metals and minerals became the economic foundation of colonial Honduras, driving Spanish interest and investment in the region.",
+      titleKey: "colonials.topic.mining.title",
+      descKey: "colonials.topic.mining.desc",
     },
     {
       icon: "fa-solid fa-cross",
-      title: "Church",
-      description:
-        "The Catholic Church played a central role in colonial society, converting indigenous populations and establishing spiritual and cultural authority.",
+      titleKey: "colonials.topic.church.title",
+      descKey: "colonials.topic.church.desc",
     },
   ],
   relatedTopics: [
     {
       icon: "fa-solid fa-flag",
-      title: "Spanish Removal",
-      description:
-        "The eventual decline of Spanish colonial rule and the transition to independence movements in the 19th century.",
+      titleKey: "colonials.topic.removal.title",
+      descKey: "colonials.topic.removal.desc",
     },
   ],
 };
@@ -65,16 +63,16 @@ const pageData: PageData = {
       <div class="relative z-10 max-w-3xl">
         <div class="inline-block mb-4">
           <span class="text-brand font-semibold tracking-wider uppercase text-sm px-4 py-2 bg-brand/10 rounded-full">
-            <i class="fa-solid fa-crown mr-2"></i>Main Exhibition
+            <i class="fa-solid fa-crown mr-2"></i>{{ t('colonials.badge') }}
           </span>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">{{ pageData.title }}</h1>
-        <h2 class="text-2xl md:text-3xl text-brand mb-8">{{ pageData.subtitle }}</h2>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">{{ t(pageData.titleKey) }}</h1>
+        <h2 class="text-2xl md:text-3xl text-brand mb-8">{{ t(pageData.subtitleKey) }}</h2>
         <p class="text-lg md:text-xl text-zinc-300 leading-relaxed mb-8">
-          {{ pageData.heroDescription }}
+          {{ t(pageData.heroDescriptionKey) }}
         </p>
         <Button href="/" variant="outline" size="md">
-          <i class="fa-solid fa-arrow-left mr-2"></i>Back to Home
+          <i class="fa-solid fa-arrow-left mr-2"></i>{{ t('button.backHome') }}
         </Button>
       </div>
     </section>
@@ -82,9 +80,13 @@ const pageData: PageData = {
     <!-- Main Topics Section -->
     <GridSection
       id="colonial-topics"
-      title="Colonial Foundations"
-      description="The three pillars of Spanish colonial society in Honduras"
-      :features="pageData.mainTopics"
+      :title="t('colonials.section.foundations')"
+      :description="'The three pillars of Spanish colonial society in Honduras'"
+      :features="pageData.mainTopics.map(topic => ({
+        icon: topic.icon,
+        title: t(topic.titleKey),
+        description: t(topic.descKey),
+      }))"
       :columns="3"
     />
 
@@ -92,29 +94,25 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20 bg-zinc-800/30 border-t border-zinc-700">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Colonial <span class="text-brand">Economy & Structure</span>
+          {{ t('colonials.section.economyStructure') }}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-8">
             <div class="text-3xl text-brand mb-4">
               <i class="fa-solid fa-pickaxe"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-3">Mining Economy</h3>
+            <h3 class="text-xl font-semibold mb-3">{{ t('colonials.economy.mining.title') }}</h3>
             <p class="text-zinc-300">
-              Silver and other precious metals extracted from Honduras were the lifeblood of colonial 
-              commerce, attracting Spanish investment and labor, and establishing trade routes that 
-              connected the colony to Europe and other Spanish colonies.
+              {{ t('colonials.economy.mining.desc') }}
             </p>
           </div>
           <div class="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-8">
             <div class="text-3xl text-brand mb-4">
               <i class="fa-solid fa-cross"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-3">Religious Authority</h3>
+            <h3 class="text-xl font-semibold mb-3">{{ t('colonials.economy.religious.title') }}</h3>
             <p class="text-zinc-300">
-              The Church became the most powerful institution in colonial society, controlling vast lands, 
-              wealth, and influencing political decisions. Conversion efforts transformed the spiritual 
-              landscape and created new cultural identities.
+              {{ t('colonials.economy.religious.desc') }}
             </p>
           </div>
         </div>
@@ -125,7 +123,7 @@ const pageData: PageData = {
     <section class="px-6 md:px-14 lg:px-28 py-20">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Historical <span class="text-brand">Timeline</span>
+          {{ t('colonials.timeline.title') }} <span class="text-brand">Timeline</span>
         </h2>
         <div class="space-y-8">
           <div class="flex gap-6">
@@ -134,8 +132,8 @@ const pageData: PageData = {
               <div class="w-1 h-20 bg-brand/30"></div>
             </div>
             <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Conquest & Settlement</h3>
-              <p class="text-zinc-300">Spanish conquistadors arrive and establish colonial control over indigenous territories</p>
+              <h3 class="text-xl font-semibold mb-2">{{ t('colonials.timeline.conquest.title') }}</h3>
+              <p class="text-zinc-300">{{ t('colonials.timeline.conquest.desc') }}</p>
             </div>
           </div>
           <div class="flex gap-6">
@@ -144,8 +142,8 @@ const pageData: PageData = {
               <div class="w-1 h-20 bg-brand/30"></div>
             </div>
             <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Town Development</h3>
-              <p class="text-zinc-300">Colonial towns are founded and organized under Spanish administrative systems</p>
+              <h3 class="text-xl font-semibold mb-2">{{ t('colonials.timeline.towns.title') }}</h3>
+              <p class="text-zinc-300">{{ t('colonials.timeline.towns.desc') }}</p>
             </div>
           </div>
           <div class="flex gap-6">
@@ -154,8 +152,8 @@ const pageData: PageData = {
               <div class="w-1 h-20 bg-brand/30"></div>
             </div>
             <div class="pb-8">
-              <h3 class="text-xl font-semibold mb-2">Mining Boom</h3>
-              <p class="text-zinc-300">Mining operations expand, bringing wealth and labor demands to colonial Honduras</p>
+              <h3 class="text-xl font-semibold mb-2">{{ t('colonials.timeline.mining.title') }}</h3>
+              <p class="text-zinc-300">{{ t('colonials.timeline.mining.desc') }}</p>
             </div>
           </div>
           <div class="flex gap-6">
@@ -163,8 +161,8 @@ const pageData: PageData = {
               <div class="w-12 h-12 rounded-full bg-brand flex items-center justify-center text-zinc-900 font-bold">1821</div>
             </div>
             <div>
-              <h3 class="text-xl font-semibold mb-2">Independence</h3>
-              <p class="text-zinc-300">Honduras breaks from Spanish colonial rule, though colonial institutions continue to influence society</p>
+              <h3 class="text-xl font-semibold mb-2">{{ t('colonials.timeline.independence.title') }}</h3>
+              <p class="text-zinc-300">{{ t('colonials.timeline.independence.desc') }}</p>
             </div>
           </div>
         </div>
@@ -175,25 +173,29 @@ const pageData: PageData = {
     <GridSection
       id="related-topics"
       title="Colonial Decline"
-      description="The transition away from colonial rule and Spanish authority"
-      :features="pageData.relatedTopics"
+      :description="'The transition away from colonial rule and Spanish authority'"
+      :features="pageData.relatedTopics.map(topic => ({
+        icon: topic.icon,
+        title: t(topic.titleKey),
+        description: t(topic.descKey),
+      }))"
     />
 
     <!-- Navigation to Related Topics -->
     <section class="px-6 md:px-14 lg:px-28 py-20 bg-zinc-800/30 border-t border-zinc-700">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-2xl md:text-3xl font-bold mb-8">
-          Explore Other <span class="text-brand">Exhibitions</span>
+          {{ t('francisco.section.exploreName') }} <span class="text-brand">Exhibitions</span>
         </h2>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <Button href="/francisco-morazan" variant="primary" size="lg">
-            <i class="fa-solid fa-person mr-2"></i>Francisco Morazan
+            <i class="fa-solid fa-person mr-2"></i>{{ t('nav.francisco') }}
           </Button>
           <Button href="/indigenous-population" variant="secondary" size="lg">
-            <i class="fa-solid fa-earth-americas mr-2"></i>Indigenous Population
+            <i class="fa-solid fa-earth-americas mr-2"></i>{{ t('nav.indigenous') }}
           </Button>
           <Button href="/" variant="outline" size="lg">
-            <i class="fa-solid fa-home mr-2"></i>Home
+            <i class="fa-solid fa-home mr-2"></i>{{ t('button.home') }}
           </Button>
         </div>
       </div>
