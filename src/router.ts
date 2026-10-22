@@ -10,22 +10,22 @@ export const router = createRouter({
     {
       path: "/",
       component: Home,
-      meta: { title: "Honduras Museum" },
+      meta: { title: "Texiguat Museum" },
     },
     {
       path: "/francisco-morazan",
       component: FranciscoPage,
-      meta: { title: "Francisco Morazan - Honduras Museum" },
+      meta: { title: "Francisco Morazan - Texiguat Museum" },
     },
     {
       path: "/spanish-colonials",
       component: ColonialsPage,
-      meta: { title: "Spanish Colonials - Honduras Museum" },
+      meta: { title: "Spanish Colonials - Texiguat Museum" },
     },
     {
       path: "/indigenous-population",
       component: IndigenousPage,
-      meta: { title: "Indigenous Population - Honduras Museum" },
+      meta: { title: "Indigenous Population - Texiguat Museum" },
     },
   ],
 });

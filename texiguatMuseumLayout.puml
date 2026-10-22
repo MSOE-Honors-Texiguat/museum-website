@@ -1,6 +1,6 @@
-@startuml hondurasMuseumLayout
+@startuml texiguatMuseumLayout
 
-title Honduras Museum Layout
+title Texiguat Museum Layout
 
 ' Top row - Main themes
 rectangle "Francisco Morazan" as francisco

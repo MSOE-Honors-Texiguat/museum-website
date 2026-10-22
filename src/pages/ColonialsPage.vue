@@ -81,7 +81,7 @@ const pageData: PageData = {
     <GridSection
       id="colonial-topics"
       :title="t('colonials.section.foundations')"
-      :description="'The three pillars of Spanish colonial society in Honduras'"
+      :description="'The three pillars of Spanish colonial society in Texiguat'"
       :features="pageData.mainTopics.map(topic => ({
         icon: topic.icon,
         title: t(topic.titleKey),

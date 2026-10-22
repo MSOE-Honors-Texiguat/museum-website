@@ -37,7 +37,7 @@ const sections = [
       <div class="absolute inset-0 opacity-20 pointer-events-none">
         <img 
           src="/images/splash.jpg" 
-          alt="Honduras Museum background" 
+          alt="Texiguat Museum background" 
           class="w-full h-full object-cover"
         />
       </div>

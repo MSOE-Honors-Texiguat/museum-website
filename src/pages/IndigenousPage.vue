@@ -91,7 +91,7 @@ const pageData: PageData = {
     <GridSection
       id="indigenous-topics"
       :title="t('indigenous.section.foundations')"
-      :description="'The core elements of indigenous Honduran culture and spirituality'"
+      :description="'The core elements of indigenous culture and spirituality in Texiguat'"
       :features="pageData.mainTopics.map(topic => ({
         icon: topic.icon,
         title: t(topic.titleKey),
